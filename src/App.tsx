@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { logo } from './assets';
+import Header from './components/Header';
+import { FirebaseDB } from './db/db';
 
 const styles = {
-  app: "w-4/5 text-center bg-red-300 h-[800px] hover:bg-blue-500 transition-all duration-500",
-  h1: "text-red-500"
+  app: "text-center",
+  app__h1: "text-red-500"
 };
 
+const db = new FirebaseDB();
+
 function App() {
+
+  useEffect(() => {
+    //@ts-ignore
+    db.getProducts();
+  }, []);
+
   return (
     <div className={styles.app}>
-      <h1 className={styles.h1}>Hello Tailwind!</h1>
+      <Header logo={logo} />
+      <h1 className={styles.app__h1}>Hello Tailwind!</h1>
     </div>
   );
 }
