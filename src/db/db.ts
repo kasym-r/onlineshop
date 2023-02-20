@@ -1,9 +1,10 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, getDocs, collection } from 'firebase/firestore'
+import { getFirestore, getDocs, collection, doc, getDoc } from 'firebase/firestore'
 import { useDispatch } from 'react-redux';
 
 //Config
 import { firebaseConfig } from "../config/firebase";
+import { setProduct } from '../store/productSlice';
 import { ProductI, setProducts } from '../store/productsSlice';
 
 export const FirebaseDB = () => {
@@ -23,8 +24,21 @@ export const FirebaseDB = () => {
         }
     }
 
+    async function getProduct(id: string) {
+        try {
+            const product = doc(db, 'products', id);
+            const colData = await getDoc(product);
+            const data: any = colData.data();
+
+            dispatch(setProduct(data))
+        } catch (_err) {
+            console.info(_err)
+        }
+    }
+
     return {
-        getProducts
+        getProducts,
+        getProduct
     }
 }
 

@@ -6,7 +6,7 @@ interface MainProps {
 
 const Main: FC<MainProps> = ({ popup }) => {
   return (
-    <div className='h-[61.6vh]'></div>
+    <div className='h-[3.9vh]'></div>
   )
 }
 
